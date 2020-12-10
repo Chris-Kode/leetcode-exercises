@@ -1,29 +1,24 @@
 function longestCommonPrefix(strs: string[]): string {
-  let positionAtMoreLarge: number = 0;
-  let start = 0;
-  let end = strs.length - 1;
-
-  while (start <= end) {
-    let moreLargeInThisIteration: number = 0;
-
-    if (strs[start].length > strs[end].length) {
-      moreLargeInThisIteration = start;
+  let prefix = "";
+  let word = strs[0];
+  if (!strs.length) {
+    return "";
+  }
+  for (let i = 0; i < word.length; i++) {
+    let allequals = true;
+    for (let j = 1; j < strs.length && allequals == true; j++) {
+      if (word[i] != strs[j][i]) {
+        allequals = false;
+      }
+    }
+    if (allequals) {
+      prefix = prefix + word[i];
     } else {
-      moreLargeInThisIteration = end;
+      i = word.length;
     }
-
-    if (
-      strs[moreLargeInThisIteration].length > strs[positionAtMoreLarge].length
-    ) {
-      positionAtMoreLarge = moreLargeInThisIteration;
-    }
-
-    start++;
-    end--;
   }
 
-  console.log(positionAtMoreLarge);
-  return "";
+  return prefix;
 }
 
-longestCommonPrefix(["flower", "flow", "flight"]);
+console.log(longestCommonPrefix(["dog", "racecar", "car"]));
